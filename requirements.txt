@@ -1,5 +1,6 @@
 streamlit
 st-copy
+langgraph<1.0.0
 langchain<1.0.0
 langchain-core
 langchain-chroma
