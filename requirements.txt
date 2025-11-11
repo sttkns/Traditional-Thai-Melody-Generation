@@ -8,5 +8,6 @@ langchain-openai
 langchain-google-genai
 langchain-anthropic
 langchain-deepseek
+scipy
 symusic
-midi2audio
+pretty_midi

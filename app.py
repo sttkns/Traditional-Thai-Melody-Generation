@@ -1,5 +1,6 @@
 import os
 import tempfile
+import numpy as np
 import streamlit as st
 from st_copy import copy_button
 from langchain.tools.retriever import create_retriever_tool
@@ -10,8 +11,9 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_deepseek import ChatDeepSeek
+from scipy.io.wavfile import write
 from symusic import Score
-from midi2audio import FluidSynth
+import pretty_midi
 
 path = os.path.dirname(__file__)
 # sf2_path = os.path.join(path, "data", "FluidR3_GM.sf2")
@@ -361,8 +363,20 @@ def abc_to_wav(song, song_name):
     midi = Score.from_abc(song)
     midi.dump_midi(midi_path)
 
-    fs = FluidSynth()
-    fs.midi_to_audio(midi_path, wav_path)
+    midi_data = pretty_midi.PrettyMIDI(midi_path)
+    
+    fs = 44100
+    waveform = np.zeros(int(midi_data.get_end_time() * fs))
+    for instrument in midi_data.instruments:
+        for note in instrument.notes:
+            start = int(note.start * fs)
+            end = int(note.end * fs)
+            freq = pretty_midi.note_number_to_hz(note.pitch)
+            t = np. linspace(0, note.end - note.start, end - start)
+            waveform[start:end] += 0.1 * np.sin(2 * np.pi * freq * t)
+    waveform = np.clip(waveform, -1, 1)
+
+    write(wav_path, 44100, (waveform * 32767).astype(np.int16))
 
     return midi_path, wav_path
 
