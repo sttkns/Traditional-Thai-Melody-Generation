@@ -1,7 +1,7 @@
 streamlit
 st-copy
 langchain==0.3.27
-langchain-core
+langchain-core<1.0.0
 langchain-chroma
 langchain-openai
 langchain-google-genai
