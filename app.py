@@ -361,7 +361,7 @@ def abc_to_wav(song, song_name):
     midi = Score.from_abc(song)
     midi.dump_midi(midi_path)
 
-    # fs = FluidSynth(sf2_path)
+    fs = FluidSynth()
     fs.midi_to_audio(midi_path, wav_path)
 
     return midi_path, wav_path
