@@ -1,5 +1,3 @@
-os
-tempfile
 streamlit==1.50.0
 st-copy==1.1.2
 langchain==0.3.27
