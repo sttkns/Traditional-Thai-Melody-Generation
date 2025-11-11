@@ -1,0 +1,13 @@
+os
+tempfile
+streamlit==1.50.0
+st-copy==1.1.2
+langchain==0.3.27
+langchain-core==1.0.4
+langchain-chroma==0.2.5
+langchain-openai==1.0.1
+langchain-google-genai==3.0.1
+langchain-anthropic==1.0.2
+langchain-deepseek==1.0.0
+symusic==0.5.7
+midi2audio==0.1.1
